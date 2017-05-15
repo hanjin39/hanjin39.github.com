@@ -103,7 +103,7 @@
 <meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/4-3.png">
 <meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/5-1.png">
 <meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/6-1.png">
-<meta property="og:updated_time" content="2017-05-15T02:08:37.000Z">
+<meta property="og:updated_time" content="2017-05-15T04:26:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="集成 Devtools">
 <meta name="twitter:description" content="Weex 提供了Weex Devtools来调试页面，当直接调试单页面和扫码都不能满足我们的时候，或者一开始，我们就应该集成Devtools到我们的APP中去。  Devtools集成到客户端后，通过webscoket 连接到调试服务器，Devtools 服务器端是客户端和Chrome web端的桥梁，负责消息转发和运行时管理，整个调试过程就是这几个进程之间协同交换运行结果的过程，Devtools">
@@ -409,9 +409,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">source https://github.com/CocoaPods/Specs.git，</div><div class="line">pod  &apos;WXDevtool&apos;, &apos;0.7.0&apos;, :configurations =&gt; [&apos;Debug&apos;]</div></pre></td></tr></table></figure>
 <p>之后运行’pod install’.</p>
 <h3 id="二-注册功能"><a href="#二-注册功能" class="headerlink" title="二.  注册功能"></a>二.  注册功能</h3><p>在程序一启动就开启 Weex 调试(当然你也可以在别的地方),即在 WeexSDK 引擎初始化之前。比如你可以在<code>AppDelegate.m</code>里面：</p>
-<h4 id="1-添加头文件"><a href="#1-添加头文件" class="headerlink" title="1.  添加头文件"></a>1.  添加头文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;TBWXDevTool/WXDevTool.h&gt;</div></pre></td></tr></table></figure>
+<h4 id="1-添加头文件"><a href="#1-添加头文件" class="headerlink" title="1.  添加头文件"></a>1.  添加头文件</h4><figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;TBWXDevTool/WXDevTool.h&gt;</span></span></div></pre></td></tr></table></figure>
 <h4 id="2-开启调试。"><a href="#2-开启调试。" class="headerlink" title="2.  开启调试。"></a>2.  开启调试。</h4><p>在<code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code>添加代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[WXDevTool setDebug:YES];</div><div class="line">[WXDevTool launchDevToolDebugWithUrl:@&quot;ws://192.168.0.104:8088/debugProxy/native&quot;];</div></pre></td></tr></table></figure>
+<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[WXDevTool setDebug:<span class="literal">YES</span>];</div><div class="line">[WXDevTool launchDevToolDebugWithUrl:<span class="string">@"ws://192.168.0.104:8088/debugProxy/native"</span>];</div></pre></td></tr></table></figure>
 <ul>
 <li><code>setDebug</code>：参数为 <code>YES</code> 时，开启 debug 模式，反之关闭.</li>
 <li>设置launchDevToolDebugWithUrl 的参数ws地址：</li>
@@ -424,15 +424,15 @@
 <ul>
 <li>在 Weex 页面初始化或 viewDidLoad 方法时添加注册通知</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationRefreshInstance:) name:@&quot;RefreshInstance&quot; object:nil];</div></pre></td></tr></table></figure>
+<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(notificationRefreshInstance:) name:<span class="string">@"RefreshInstance"</span> object:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
 <ul>
 <li>在 dealloc 方法中取消通知</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)dealloc</div><div class="line">&#123;</div><div class="line">    [[NSNotificationCenter defaultCenter] removeObserver:self];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] removeObserver:<span class="keyword">self</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>页面刷新实现，先销毁当前 instance，然后重新创建 instance</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[_instance destroyInstance];</div><div class="line">_instance = [[WXSDKInstance alloc] init];</div></pre></td></tr></table></figure>
+<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[_instance destroyInstance];</div><div class="line">_instance = [[WXSDKInstance alloc] init];</div></pre></td></tr></table></figure>
 <h3 id="三-使用"><a href="#三-使用" class="headerlink" title="三.  使用"></a>三.  使用</h3><ul>
 <li><p>开启<code>weex debug</code>后Chrome是空白的：<br><img src="/2017/05/15/weex-Devtools/2.png" alt=""></p>
 </li>
@@ -449,15 +449,15 @@
 <h2 id="集成-Devtools-到-Android"><a href="#集成-Devtools-到-Android" class="headerlink" title="集成 Devtools 到 Android"></a>集成 Devtools 到 Android</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><ul>
 <li>通过 Gradle 添加对 devtools aar 的依赖.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">  compile &apos;com.taobao.android:weex_inspector:0.8.0.0&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">  compile <span class="string">'com.taobao.android:weex_inspector:0.8.0.0'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>反射引用的包(0.8.0.0以上版本)</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">  compile &apos;com.squareup.okhttp:okhttp:2.3.0&apos;</div><div class="line">  compile &apos;com.squareup.okhttp:okhttp-ws:2.3.0&apos;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">  compile <span class="string">'com.squareup.okhttp:okhttp:2.3.0'</span></div><div class="line">  compile <span class="string">'com.squareup.okhttp:okhttp-ws:2.3.0'</span></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="添加-Debug-模式开关"><a href="#添加-Debug-模式开关" class="headerlink" title="添加 Debug 模式开关"></a>添加 Debug 模式开关</h3><p>最简单的方式是通过在 XXXApplication 中设置开关打开调试模式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class MyApplication extends Application &#123;</div><div class="line">  public void onCreate() &#123;</div><div class="line">  super.onCreate();</div><div class="line">  initDebugEnvironment(true, true, &quot;192.168.0.104&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">super</span>.onCreate();</div><div class="line">  initDebugEnvironment(<span class="keyword">true</span>, <span class="keyword">true</span>, <span class="string">"192.168.0.104"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><code>initDebugEnvironment</code>方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">   * @param enable enable remote debugger. valid only if host not to be &quot;DEBUG_SERVER_HOST&quot;.</div><div class="line">   *               true, you can launch a remote debugger and inspector both.</div><div class="line">   *               false, you can  just launch a inspector.</div><div class="line">   * @param host   the debug server host, must not be &quot;DEBUG_SERVER_HOST&quot;, a ip address or domain will be OK.</div><div class="line">   *               for example &quot;127.0.0.1&quot;.</div><div class="line">   */</div><div class="line">  private void initDebugEnvironment(boolean connectable,boolean enable, String host) &#123;</div><div class="line">    if (!&quot;DEBUG_SERVER_HOST&quot;.equals(host)) &#123;</div><div class="line">      WXEnvironment.sDebugServerConnectable = connectable;</div><div class="line">      WXEnvironment.sRemoteDebugMode = enable;</div><div class="line">      WXEnvironment.sRemoteDebugProxyUrl = &quot;ws://&quot; + host + &quot;:8088/debugProxy/native&quot;;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">   * <span class="doctag">@param</span> enable enable remote debugger. valid only if host not to be "DEBUG_SERVER_HOST".</div><div class="line">   *               true, you can launch a remote debugger and inspector both.</div><div class="line">   *               false, you can  just launch a inspector.</div><div class="line">   * <span class="doctag">@param</span> host   the debug server host, must not be "DEBUG_SERVER_HOST", a ip address or domain will be OK.</div><div class="line">   *               for example "127.0.0.1".</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initDebugEnvironment</span><span class="params">(<span class="keyword">boolean</span> connectable,<span class="keyword">boolean</span> enable, String host)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="string">"DEBUG_SERVER_HOST"</span>.equals(host)) &#123;</div><div class="line">      WXEnvironment.sDebugServerConnectable = connectable;</div><div class="line">      WXEnvironment.sRemoteDebugMode = enable;</div><div class="line">      WXEnvironment.sRemoteDebugProxyUrl = <span class="string">"ws://"</span> + host + <span class="string">":8088/debugProxy/native"</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>connectable 是否开启Debug</li>
 <li>enable 选择remote debugger模式。true，开启remote debugger 和 inspector。false只开启 inspector</li>
@@ -1167,6 +1167,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
