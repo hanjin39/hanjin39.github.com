@@ -1,0 +1,804 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Android,weex,APP,Vue," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Weex 提供了Weex Devtools来调试页面，当直接调试单页面和扫码都不能满足我们的时候，或者一开始，我们就应该集成Devtools到我们的APP中去。  Devtools集成到客户端后，通过webscoket 连接到调试服务器，Devtools 服务器端是客户端和Chrome web端的桥梁，负责消息转发和运行时管理，整个调试过程就是这几个进程之间协同交换运行结果的过程，Devtools">
+<meta name="keywords" content="iOS,Android,weex,APP,Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集成 Devtools">
+<meta property="og:url" content="http://www.aile1314.top/2017/05/15/weex-Devtools/index.html">
+<meta property="og:site_name" content="韩进的博客">
+<meta property="og:description" content="Weex 提供了Weex Devtools来调试页面，当直接调试单页面和扫码都不能满足我们的时候，或者一开始，我们就应该集成Devtools到我们的APP中去。  Devtools集成到客户端后，通过webscoket 连接到调试服务器，Devtools 服务器端是客户端和Chrome web端的桥梁，负责消息转发和运行时管理，整个调试过程就是这几个进程之间协同交换运行结果的过程，Devtools">
+<meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/1.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/2.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/3-2.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/4-3.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/5-1.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/6-1.png">
+<meta property="og:updated_time" content="2017-05-15T02:08:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="集成 Devtools">
+<meta name="twitter:description" content="Weex 提供了Weex Devtools来调试页面，当直接调试单页面和扫码都不能满足我们的时候，或者一开始，我们就应该集成Devtools到我们的APP中去。  Devtools集成到客户端后，通过webscoket 连接到调试服务器，Devtools 服务器端是客户端和Chrome web端的桥梁，负责消息转发和运行时管理，整个调试过程就是这几个进程之间协同交换运行结果的过程，Devtools">
+<meta name="twitter:image" content="http://www.aile1314.top/2017/05/15/weex-Devtools/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.aile1314.top/2017/05/15/weex-Devtools/"/>
+
+
+
+
+
+  <title>集成 Devtools | 韩进的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">韩进的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">繁华落尽，洗尽铅华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.aile1314.top/2017/05/15/weex-Devtools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RunningSnail">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="韩进的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">集成 Devtools</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-15T10:01:57+08:00">
+                2017-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Weex/" itemprop="url" rel="index">
+                    <span itemprop="name">Weex</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Weex 提供了Weex Devtools来调试页面，当直接调试单页面和扫码都不能满足我们的时候，或者一开始，我们就应该集成Devtools到我们的APP中去。</p>
+<blockquote>
+<p>Devtools集成到客户端后，通过webscoket 连接到调试服务器，Devtools 服务器端是客户端和Chrome web端的桥梁，负责消息转发和运行时管理，整个调试过程就是这几个进程之间协同交换运行结果的过程，Devtools详细通信机制可以参考<a href="http://weex.apache.org/cn/references/advanced/integrate-devtool-to-android.html" target="_blank" rel="external">Devtools 组件介绍</a></p>
+</blockquote>
+<a id="more"></a>
+<h3 id="一-接入Devtools"><a href="#一-接入Devtools" class="headerlink" title="一.  接入Devtools"></a>一.  接入Devtools</h3><p><strong>推荐添加<code>cocoapods</code>依赖来集成</strong>。<br>在工程目录的 podfile 添加依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">source https://github.com/CocoaPods/Specs.git，</div><div class="line">pod  &apos;WXDevtool&apos;, &apos;0.7.0&apos;, :configurations =&gt; [&apos;Debug&apos;]</div></pre></td></tr></table></figure>
+<p>之后运行’pod install’.</p>
+<h3 id="二-注册功能"><a href="#二-注册功能" class="headerlink" title="二.  注册功能"></a>二.  注册功能</h3><p>在程序一启动就开启 Weex 调试(当然你也可以在别的地方),即在 WeexSDK 引擎初始化之前。比如你可以在<code>AppDelegate.m</code>里面：</p>
+<h4 id="1-添加头文件"><a href="#1-添加头文件" class="headerlink" title="1.  添加头文件"></a>1.  添加头文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;TBWXDevTool/WXDevTool.h&gt;</div></pre></td></tr></table></figure>
+<h4 id="2-开启调试。"><a href="#2-开启调试。" class="headerlink" title="2.  开启调试。"></a>2.  开启调试。</h4><p>在<code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code>添加代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[WXDevTool setDebug:YES];</div><div class="line">[WXDevTool launchDevToolDebugWithUrl:@&quot;ws://192.168.0.104:8088/debugProxy/native&quot;];</div></pre></td></tr></table></figure>
+<ul>
+<li><code>setDebug</code>：参数为 <code>YES</code> 时，开启 debug 模式，反之关闭.</li>
+<li>设置launchDevToolDebugWithUrl 的参数ws地址：</li>
+</ul>
+<p><strong>在本地开启Debug 服务:<code>weex debug</code></strong></p>
+<p><em>(开发中以 weex debug -V 的方式启动 Debugger Server 可以看到 server 端的 log 信息，对于定位问题非常有帮助，建议调试中默认开启 server 端 log。)</em></p>
+<p><code>终端</code><br><img src="/2017/05/15/weex-Devtools/1.png" alt=""></p>
+<p>其中的 ws 地址正是launchDevToolDebugWithUrl接口的参数。</p>
+<h4 id="3-添加页面刷新功能"><a href="#3-添加页面刷新功能" class="headerlink" title="3.  添加页面刷新功能"></a>3.  添加页面刷新功能</h4><p>当开启调试时，js 的运行环境会从手机端（JavaScriptCore）切换到 Chrome（V8），这时需要重新初始化 Weex 环境，重新渲染页面。页面渲染是需要接入方在自己的页面添加。</p>
+<ul>
+<li>在 Weex 页面初始化或 viewDidLoad 方法时添加注册通知</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationRefreshInstance:) name:@&quot;RefreshInstance&quot; object:nil];</div></pre></td></tr></table></figure>
+<ul>
+<li>在 dealloc 方法中取消通知</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)dealloc</div><div class="line">&#123;</div><div class="line">    [[NSNotificationCenter defaultCenter] removeObserver:self];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>页面刷新实现，先销毁当前 instance，然后重新创建 instance</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[_instance destroyInstance];</div><div class="line">_instance = [[WXSDKInstance alloc] init];</div></pre></td></tr></table></figure>
+<h3 id="三-使用"><a href="#三-使用" class="headerlink" title="三.  使用"></a>三.  使用</h3><ul>
+<li><p>开启<code>weex debug</code>后Chrome是空白的：<br><img src="/2017/05/15/weex-Devtools/2.png" alt=""></p>
+</li>
+<li><p>运行xcode，如果集成成功你会看到：<br><img src="/2017/05/15/weex-Devtools/3-2.png" alt=""></p>
+<p>并且模拟器会是空白的，不要着急。</p>
+</li>
+<li><p>点击Debugger，你会看到日志，模拟器也恢复正常了。</p>
+</li>
+</ul>
+<p><img src="/2017/05/15/weex-Devtools/4-3.png" alt=""></p>
+<p> 至此就算集成成功，你可以看到Chrome和xcode都有日志，还可以在js里面打断点，比如：</p>
+<p><img src="/2017/05/15/weex-Devtools/5-1.png" alt=""></p>
+<p>详细的调试功能参考<a href="http://weex.apache.org/cn/v-0.10/guide/how-to/index.html" target="_blank" rel="external">使用 Devtools 调试 Weex 页面</a></p>
+<h2 id="集成-Devtools-到-Android"><a href="#集成-Devtools-到-Android" class="headerlink" title="集成 Devtools 到 Android"></a>集成 Devtools 到 Android</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><ul>
+<li>通过 Gradle 添加对 devtools aar 的依赖.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">  compile &apos;com.taobao.android:weex_inspector:0.8.0.0&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>反射引用的包(0.8.0.0以上版本)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">  compile &apos;com.squareup.okhttp:okhttp:2.3.0&apos;</div><div class="line">  compile &apos;com.squareup.okhttp:okhttp-ws:2.3.0&apos;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="添加-Debug-模式开关"><a href="#添加-Debug-模式开关" class="headerlink" title="添加 Debug 模式开关"></a>添加 Debug 模式开关</h3><p>最简单的方式是通过在 XXXApplication 中设置开关打开调试模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class MyApplication extends Application &#123;</div><div class="line">  public void onCreate() &#123;</div><div class="line">  super.onCreate();</div><div class="line">  initDebugEnvironment(true, true, &quot;192.168.0.104&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>initDebugEnvironment</code>方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">   * @param enable enable remote debugger. valid only if host not to be &quot;DEBUG_SERVER_HOST&quot;.</div><div class="line">   *               true, you can launch a remote debugger and inspector both.</div><div class="line">   *               false, you can  just launch a inspector.</div><div class="line">   * @param host   the debug server host, must not be &quot;DEBUG_SERVER_HOST&quot;, a ip address or domain will be OK.</div><div class="line">   *               for example &quot;127.0.0.1&quot;.</div><div class="line">   */</div><div class="line">  private void initDebugEnvironment(boolean connectable,boolean enable, String host) &#123;</div><div class="line">    if (!&quot;DEBUG_SERVER_HOST&quot;.equals(host)) &#123;</div><div class="line">      WXEnvironment.sDebugServerConnectable = connectable;</div><div class="line">      WXEnvironment.sRemoteDebugMode = enable;</div><div class="line">      WXEnvironment.sRemoteDebugProxyUrl = &quot;ws://&quot; + host + &quot;:8088/debugProxy/native&quot;;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>connectable 是否开启Debug</li>
+<li>enable 选择remote debugger模式。true，开启remote debugger 和 inspector。false只开启 inspector</li>
+<li>host本机的ip地址，同样可以参考上面如何获取ws地址。</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>步骤同iOS</p>
+<p>开启Debug 服务后：<br><img src="/2017/05/15/weex-Devtools/6-1.png" alt=""></p>
+<p>至此，Devtools集成完毕，have fun!</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/weex/" rel="tag"># weex</a>
+          
+            <a href="/tags/APP/" rel="tag"># APP</a>
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/15/weex-first-start/" rel="next" title="Weex 初体验">
+                <i class="fa fa-chevron-left"></i> Weex 初体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/15/weex-Module/" rel="prev" title="实现Weex Module 扩展">
+                实现Weex Module 扩展 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.JPG"
+               alt="RunningSnail" />
+          <p class="site-author-name" itemprop="name">RunningSnail</p>
+           
+              <p class="site-description motion-element" itemprop="description">当你的知识还不能支撑你的梦想时，请你静下心来学习!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-接入Devtools"><span class="nav-number">1.</span> <span class="nav-text">一.  接入Devtools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-注册功能"><span class="nav-number">2.</span> <span class="nav-text">二.  注册功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加头文件"><span class="nav-number">2.1.</span> <span class="nav-text">1.  添加头文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-开启调试。"><span class="nav-number">2.2.</span> <span class="nav-text">2.  开启调试。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-添加页面刷新功能"><span class="nav-number">2.3.</span> <span class="nav-text">3.  添加页面刷新功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-使用"><span class="nav-number">3.</span> <span class="nav-text">三.  使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集成-Devtools-到-Android"><span class="nav-number"></span> <span class="nav-text">集成 Devtools 到 Android</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加依赖"><span class="nav-number">1.</span> <span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-Debug-模式开关"><span class="nav-number">2.</span> <span class="nav-text">添加 Debug 模式开关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RunningSnail</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
