@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,Android,weex,APP,Vue," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,17 +90,15 @@
 
 
 
-<meta name="description" content="自定义module扩展在前面文章已经介绍过，本文针对自定义module扩展时，列出了Native 和 JS 之间数据交互的几种方式。创建好了module后，剩下来就是传递数据了，数据传递分异步和同步两种方式。 JS给Native发送数据无需多说，通过调用module提供的方法时即可带上参数。本文而介绍的就是Native发送数据给JS时的几种方式了。">
-<meta name="keywords" content="iOS,Android,weex,APP,Vue">
-<meta property="og:type" content="article">
-<meta property="og:title" content="weex-Module 之 Native 和 JS 通信">
-<meta property="og:url" content="http://www.aile1314.top/2017/05/23/weex-Module-communicate/index.html">
+<meta name="description" content="当你的知识还不能支撑你的梦想时，请你静下心来学习!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="韩进的博客">
+<meta property="og:url" content="http://www.aile1314.top/categories/iOS/index.html">
 <meta property="og:site_name" content="韩进的博客">
-<meta property="og:description" content="自定义module扩展在前面文章已经介绍过，本文针对自定义module扩展时，列出了Native 和 JS 之间数据交互的几种方式。创建好了module后，剩下来就是传递数据了，数据传递分异步和同步两种方式。 JS给Native发送数据无需多说，通过调用module提供的方法时即可带上参数。本文而介绍的就是Native发送数据给JS时的几种方式了。">
-<meta property="og:updated_time" content="2017-05-23T07:19:43.000Z">
+<meta property="og:description" content="当你的知识还不能支撑你的梦想时，请你静下心来学习!">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="weex-Module 之 Native 和 JS 通信">
-<meta name="twitter:description" content="自定义module扩展在前面文章已经介绍过，本文针对自定义module扩展时，列出了Native 和 JS 之间数据交互的几种方式。创建好了module后，剩下来就是传递数据了，数据传递分异步和同步两种方式。 JS给Native发送数据无需多说，通过调用module提供的方法时即可带上参数。本文而介绍的就是Native发送数据给JS时的几种方式了。">
+<meta name="twitter:title" content="韩进的博客">
+<meta name="twitter:description" content="当你的知识还不能支撑你的梦想时，请你静下心来学习!">
 
 
 
@@ -128,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.aile1314.top/2017/05/23/weex-Module-communicate/"/>
+  <link rel="canonical" href="http://www.aile1314.top/categories/iOS/"/>
 
 
 
 
 
-  <title>weex-Module 之 Native 和 JS 通信 | 韩进的博客</title>
+  <title>分类: iOS | 韩进的博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -159,7 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -287,253 +285,73 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.aile1314.top/2017/05/23/weex-Module-communicate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RunningSnail">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="韩进的博客">
-    </span>
+  <section id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h1>iOS<small>分类</small>
+      </h1>
+    </div>
 
     
-      <header class="post-header">
+      
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">weex-Module 之 Native 和 JS 通信</h1>
-        
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2017/09/30/iPhoneX-Adaptive/" itemprop="url">
               
-                <span class="post-meta-item-text">发表于</span>
+                <span itemprop="name">适配iPhoneX 布局</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-23T14:17:16+08:00">
-                2017-05-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Weex/" itemprop="url" rel="index">
-                    <span itemprop="name">Weex</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a class="cloud-tie-join-count" href="/2017/05/23/weex-Module-communicate/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>自定义module扩展在前面文章已经介绍过，本文针对自定义module扩展时，列出了Native 和 JS 之间数据交互的几种方式。创建好了module后，剩下来就是传递数据了，数据传递分异步和同步两种方式。</p>
-<p>JS给Native发送数据无需多说，通过调用module提供的方法时即可带上参数。本文而介绍的就是Native发送数据给JS时的几种方式了。</p>
-<a id="more"></a>
-<h2 id="方法回调"><a href="#方法回调" class="headerlink" title="方法回调"></a>方法回调</h2><p>module定义方法时，即可提供回调给JS。回调类型有两种：</p>
-<ul>
-<li><code>WXModuleCallback</code> 为了性能考虑，该回调只能回调通知js一次，之后会被释放，多用于一次结果。</li>
-</ul>
-<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"WXEventModule.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"WXDemoViewController.h"</span></span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">WXEventModule</span></span></div><div class="line">WX_EXPORT_METHOD(<span class="keyword">@selector</span>(openURL:callback:))</div><div class="line">- (<span class="keyword">void</span>)openURL:(<span class="built_in">NSString</span> *)url callback:(WXModuleCallback)callback</div><div class="line">&#123;</div><div class="line">    <span class="comment">//callback(@&#123;@"result":@"success",@"url":url&#125;);</span></div><div class="line">    callback(<span class="string">@"success*****************"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><code>WXModuleKeepAliveCallback</code> 该回调可以设置是否为多次回调类型，多次回调的场景如持续监听位置的变化，并返回给 js。</li>
-</ul>
-<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">WXEchoModule</span></span></div><div class="line"><span class="keyword">@synthesize</span> weexInstance; <span class="comment">// 让该module 获得当前instance</span></div><div class="line">WX_EXPORT_METHOD(<span class="keyword">@selector</span>(echo:))</div><div class="line">- (<span class="keyword">void</span>)echo:(<span class="built_in">NSString</span> *)param callback:(WXModuleKeepAliveCallback)callback</div><div class="line">&#123;</div><div class="line">  callback(param,ture);<span class="comment">// 此处设置true，该回调function 可以多次回调执行，可以写循环测试.</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="事件通知"><a href="#事件通知" class="headerlink" title="事件通知"></a>事件通知</h2><p>在native发送事件并携带数据,JS监听事件拿到数据。</p>
-<ul>
-<li>通过 <code>addEventListener</code> 注册事件监听，当你不再需要的时候，也可以通过 <code>removeEventListener</code> 取消事件监听。</li>
-<li>实例级别的事件，即在当前实例（页面）有效，不能应用整个应用。</li>
-</ul>
-<p>常用于定位信息，陀螺仪等的变化。</p>
-<h3 id="发送事件"><a href="#发送事件" class="headerlink" title="发送事件"></a>发送事件</h3><p><code>WXSDKInstance</code>给我们提供了两种发送事件的方式。针对<code>module</code>和<code>global</code>的。</p>
-<p><code>WXSDKInstance.h</code></p>
-<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * fire module event;</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)fireModuleEvent:(Class)module eventName:(<span class="built_in">NSString</span> *)eventName params:(<span class="built_in">NSDictionary</span>*)params;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * fire global event</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)fireGlobalEvent:(<span class="built_in">NSString</span> *)eventName params:(<span class="built_in">NSDictionary</span> *)params;</div></pre></td></tr></table></figure>
-<p>参数:</p>
-<ul>
-<li><code>eventName</code>  事件名</li>
-<li><code>params</code> 参数</li>
-</ul>
-<p>在iOS中，当前instance实例可以通过WXSDKEngine的加号方法获得:</p>
-<p><code>WXSDKEngine.h</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @abstract The Instance at the top of the rendering stack. </div><div class="line"> *</div><div class="line"> **/</div><div class="line">+ (WXSDKInstance *)topInstance;</div></pre></td></tr></table></figure>
-<p>例如：<br><strong>Android</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Map&lt;String,Object&gt; params=<span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">params.put(<span class="string">"key"</span>,<span class="string">"value"</span>);</div><div class="line">mWXSDKInstance.fireGlobalEventCallback(<span class="string">"geolocation"</span>,params);</div></pre></td></tr></table></figure>
-<p><strong>iOS</strong></p>
-<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[weexInstance fireGlobalEvent:<span class="string">@"geolocation"</span> params:@&#123;<span class="string">@"key"</span>:<span class="string">@"value"</span>&#125;];</div></pre></td></tr></table></figure>
-<p>如果是发送 <code>module</code> 事件:</p>
-<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">WXSDKInstance * instance =  [WXSDKEngine topInstance];</div><div class="line">[instance  fireModuleEvent:[WXPayModule <span class="keyword">class</span>] eventName:<span class="string">@"moduleevent"</span> params:@&#123;<span class="string">@"success"</span>:<span class="string">@"111"</span>&#125;];</div></pre></td></tr></table></figure>
-<h3 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h3><p> <strong>注册事件</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">addEventListener(<span class="built_in">String</span> eventName, <span class="built_in">String</span> callback)</div></pre></td></tr></table></figure>
-<p>参数:</p>
-<ul>
-<li><code>eventName</code> {string}：需要监听的事件名称。</li>
-<li><code>callback</code> {Function}：触发事件后的回调函数。</li>
-</ul>
-<p>例如:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> globalEvent = weex.requireModule(<span class="string">'globalEvent'</span>);</div><div class="line">globalEvent.addEventListener(<span class="string">"geolocation"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"get geolocation"</span>)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>或者在自定义module上注册监听。</p>
-<p><strong>取消事件监听</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">removeEventListener(<span class="built_in">String</span> eventName)</div></pre></td></tr></table></figure>
-<p>例如:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> globalEvent = weex.requireModule(<span class="string">'globalEvent'</span>);</div><div class="line">globalEvent.removeEventListener(<span class="string">"geolocation"</span>);</div></pre></td></tr></table></figure>
-<h2 id="同步方法"><a href="#同步方法" class="headerlink" title="同步方法"></a>同步方法</h2><p>同步拿到native数据，即不会用到回调函数。<br>使用<code>WX_EXPORT_METHOD_SYNC</code> 宏。</p>
-<p>iOS里面定义方法:</p>
-<figure class="highlight mm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">WXEventModule</span></span></div><div class="line">WX_EXPORT_METHOD_SYNC(<span class="keyword">@selector</span>(getString))</div><div class="line">  </div><div class="line">- (<span class="built_in">NSString</span> *)getString</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">@"testString"</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p>js 调用:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> eventModule = weex.requireModule(<span class="string">'event'</span>)</div><div class="line"><span class="keyword">const</span> returnString = syncTest.getString()</div></pre></td></tr></table></figure>
-<p>至于采用哪种方式发送数据就得看实际场景了，能在module注册方法时直接回调当然好，很多时候是复杂的，比如实时更新位置等。</p>
-<p>最近正在集成支付时用到事件通知，特此在这里总结一下，后续可能还会碰到新的需求再回来加上。</p>
-
-      
-    </div>
-
-    <div>
-      
+            </a>
         
+      </h2>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-09-30T14:54:55+08:00"
+              content="2017-09-30" >
+          09-30
+        </time>
+      </div>
 
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
-          
-            <a href="/tags/Android/" rel="tag"># Android</a>
-          
-            <a href="/tags/weex/" rel="tag"># weex</a>
-          
-            <a href="/tags/APP/" rel="tag"># APP</a>
-          
-            <a href="/tags/Vue/" rel="tag"># Vue</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/05/21/weex-commpoent/" rel="next" title="weex之组件化开发">
-                <i class="fa fa-chevron-left"></i> weex之组件化开发
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/30/ios-tabBar-hidden/" rel="prev" title="ios-tabBar-hidden">
-                ios-tabBar-hidden <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
         
-<script>
-  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-</script>
+            <a class="post-title-link" href="/2017/09/30/ios-tabBar-hidden/" itemprop="url">
+              
+                <span itemprop="name">ios-tabBar-hidden</span>
+              
+            </a>
+        
+      </h2>
 
-      
-    </div>
-  </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-09-30T14:48:20+08:00"
+              content="2017-09-30" >
+          09-30
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+    
+  </section>
+
+  
+
 
 
           </div>
@@ -541,12 +359,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-    
-  </div>
-
 
         </div>
         
@@ -566,17 +378,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.JPG"
@@ -638,22 +441,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法回调"><span class="nav-number">1.</span> <span class="nav-text">方法回调</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件通知"><span class="nav-number">2.</span> <span class="nav-text">事件通知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发送事件"><span class="nav-number">2.1.</span> <span class="nav-text">发送事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS"><span class="nav-number">2.2.</span> <span class="nav-text">JS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步方法"><span class="nav-number">3.</span> <span class="nav-text">同步方法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -774,10 +561,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
-
 
   
 

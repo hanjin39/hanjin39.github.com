@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[适配iPhoneX 布局]]></title>
+    <url>%2F2017%2F09%2F30%2FiPhoneX-Adaptive%2F</url>
+    <content type="text"><![CDATA[大多数系统提供的UI比如导航栏，表格和集合都可以自适应，交互指南里面特别提到的不能遮盖屏幕顶部或者底部的圆角，传感器外壳或者屏幕指示器。特别的iOS 11允许屏幕底部边缘的手势访问控制中心等，所以遮挡都会引起手势冲突。]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ios-tabBar-hidden]]></title>
+    <url>%2F2017%2F09%2F30%2Fios-tabBar-hidden%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[weex-Module 之 Native 和 JS 通信]]></title>
     <url>%2F2017%2F05%2F23%2Fweex-Module-communicate%2F</url>
     <content type="text"><![CDATA[自定义module扩展在前面文章已经介绍过，本文针对自定义module扩展时，列出了Native 和 JS 之间数据交互的几种方式。创建好了module后，剩下来就是传递数据了，数据传递分异步和同步两种方式。 JS给Native发送数据无需多说，通过调用module提供的方法时即可带上参数。本文而介绍的就是Native发送数据给JS时的几种方式了。 方法回调module定义方法时，即可提供回调给JS。回调类型有两种： WXModuleCallback 为了性能考虑，该回调只能回调通知js一次，之后会被释放，多用于一次结果。 123456789#import "WXEventModule.h"#import "WXDemoViewController.h"@implementation WXEventModuleWX_EXPORT_METHOD(@selector(openURL:callback:))- (void)openURL:(NSString *)url callback:(WXModuleCallback)callback&#123; //callback(@&#123;@"result":@"success",@"url":url&#125;); callback(@"success*****************");&#125; WXModuleKeepAliveCallback 该回调可以设置是否为多次回调类型，多次回调的场景如持续监听位置的变化，并返回给 js。 1234567@implementation WXEchoModule@synthesize weexInstance; // 让该module 获得当前instanceWX_EXPORT_METHOD(@selector(echo:))- (void)echo:(NSString *)param callback:(WXModuleKeepAliveCallback)callback&#123; callback(param,ture);// 此处设置true，该回调function 可以多次回调执行，可以写循环测试.&#125; 事件通知在native发送事件并携带数据,JS监听事件拿到数据。 通过 addEventListener 注册事件监听，当你不再需要的时候，也可以通过 removeEventListener 取消事件监听。 实例级别的事件，即在当前实例（页面）有效，不能应用整个应用。 常用于定位信息，陀螺仪等的变化。 发送事件WXSDKInstance给我们提供了两种发送事件的方式。针对module和global的。 WXSDKInstance.h 123456789/** * fire module event; */- (void)fireModuleEvent:(Class)module eventName:(NSString *)eventName params:(NSDictionary*)params;/** * fire global event */- (void)fireGlobalEvent:(NSString *)eventName params:(NSDictionary *)params; 参数: eventName 事件名 params 参数 在iOS中，当前instance实例可以通过WXSDKEngine的加号方法获得: WXSDKEngine.h 12345/** * @abstract The Instance at the top of the rendering stack. * **/+ (WXSDKInstance *)topInstance; 例如：Android 123Map&lt;String,Object&gt; params=new HashMap&lt;&gt;();params.put("key","value");mWXSDKInstance.fireGlobalEventCallback("geolocation",params); iOS 1[weexInstance fireGlobalEvent:@"geolocation" params:@&#123;@"key":@"value"&#125;]; 如果是发送 module 事件: 12WXSDKInstance * instance = [WXSDKEngine topInstance];[instance fireModuleEvent:[WXPayModule class] eventName:@"moduleevent" params:@&#123;@"success":@"111"&#125;]; JS 注册事件 1addEventListener(String eventName, String callback) 参数: eventName {string}：需要监听的事件名称。 callback {Function}：触发事件后的回调函数。 例如: 1234var globalEvent = weex.requireModule('globalEvent');globalEvent.addEventListener("geolocation", function (e) &#123; console.log("get geolocation")&#125;); 或者在自定义module上注册监听。 取消事件监听 1removeEventListener(String eventName) 例如: 12var globalEvent = weex.requireModule('globalEvent');globalEvent.removeEventListener("geolocation"); 同步方法同步拿到native数据，即不会用到回调函数。使用WX_EXPORT_METHOD_SYNC 宏。 iOS里面定义方法: 12345678@implementation WXEventModuleWX_EXPORT_METHOD_SYNC(@selector(getString)) - (NSString *)getString&#123; return @"testString";&#125;@end js 调用: 12const eventModule = weex.requireModule('event')const returnString = syncTest.getString() 至于采用哪种方式发送数据就得看实际场景了，能在module注册方法时直接回调当然好，很多时候是复杂的，比如实时更新位置等。 最近正在集成支付时用到事件通知，特此在这里总结一下，后续可能还会碰到新的需求再回来加上。]]></content>
