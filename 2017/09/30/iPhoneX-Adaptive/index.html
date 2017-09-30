@@ -97,10 +97,18 @@
 <meta property="og:url" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/index.html">
 <meta property="og:site_name" content="韩进的博客">
 <meta property="og:description" content="大多数系统提供的UI比如导航栏，表格和集合都可以自适应，交互指南里面特别提到的不能遮盖屏幕顶部或者底部的圆角，传感器外壳或者屏幕指示器。特别的iOS 11允许屏幕底部边缘的手势访问控制中心等，所以遮挡都会引起手势冲突。">
-<meta property="og:updated_time" content="2017-09-30T06:56:38.000Z">
+<meta property="og:image" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/1.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/3.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/2.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/4.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/5.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/6.png">
+<meta property="og:image" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/7.png">
+<meta property="og:updated_time" content="2017-09-30T07:01:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="适配iPhoneX 布局">
 <meta name="twitter:description" content="大多数系统提供的UI比如导航栏，表格和集合都可以自适应，交互指南里面特别提到的不能遮盖屏幕顶部或者底部的圆角，传感器外壳或者屏幕指示器。特别的iOS 11允许屏幕底部边缘的手势访问控制中心等，所以遮挡都会引起手势冲突。">
+<meta name="twitter:image" content="http://www.aile1314.top/2017/09/30/iPhoneX-Adaptive/1.png">
 
 
 
@@ -395,6 +403,30 @@
       
         <p>大多数系统提供的UI比如导航栏，表格和集合都可以自适应，交互指南里面特别提到的不能遮盖屏幕顶部或者底部的圆角，传感器外壳或者屏幕指示器。<br>特别的iOS 11允许屏幕底部边缘的手势访问控制中心等，所以遮挡都会引起手势冲突。</p>
 <a id="more"></a>
+<h3 id="Safe-Area-Layout-Guide"><a href="#Safe-Area-Layout-Guide" class="headerlink" title="Safe Area Layout Guide"></a>Safe Area Layout Guide</h3><p><img src="/2017/09/30/iPhoneX-Adaptive/1.png" alt=""></p>
+<p>上下底部的圆角都留出来了。</p>
+<p><img src="/2017/09/30/iPhoneX-Adaptive/3.png" alt=""></p>
+<p>还是比较好用，唯一遗憾的是不支持ios9以前的系统。<br><img src="/2017/09/30/iPhoneX-Adaptive/2.png" alt=""></p>
+<h3 id="Top-Layout-Guide-Bottom-Layout-Guide"><a href="#Top-Layout-Guide-Bottom-Layout-Guide" class="headerlink" title="Top Layout Guide,Bottom Layout Guide"></a>Top Layout Guide,Bottom Layout Guide</h3><p>当然在ios9以前的系统可以利用<code>StoreBoard</code>的<code>Top Layout Guide</code> ,<code>Bottom Layout Guide</code>。同样能达到布局的效果</p>
+<p>先取消<code>Safe Area Layout Guide</code></p>
+<p><img src="/2017/09/30/iPhoneX-Adaptive/4.png" alt=""></p>
+<p>布局如下<br><img src="/2017/09/30/iPhoneX-Adaptive/5.png" alt=""></p>
+<h3 id="XIB"><a href="#XIB" class="headerlink" title="XIB"></a>XIB</h3><p>当然在xib下面没有<code>Top Layout Guide</code> ,<code>Bottom Layout Guide</code>。</p>
+<p>底部布局只需要 勾上 <code>Constrain to margins</code></p>
+<p><img src="/2017/09/30/iPhoneX-Adaptive/6.png" alt=""></p>
+<p>即可达到同样效果</p>
+<p><img src="/2017/09/30/iPhoneX-Adaptive/7.png" alt=""></p>
+<h3 id="代码下面添加约束"><a href="#代码下面添加约束" class="headerlink" title="代码下面添加约束"></a>代码下面添加约束</h3><p>参考 <a href="http://blog.csdn.net/u014084081/article/details/52174504" target="_blank" rel="external">代码创建约束</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">avatarView.topAnchor.constraintEqualToAnchor(</div><div class="line">       topLayoutGuide.bottomAnchor).active = true</div><div class="line"></div><div class="line"></div><div class="line">bookTextView.bottomAnchor.constraintEqualToAnchor(</div><div class="line">             bottomLayoutGuide.topAnchor,</div><div class="line">             constant: -20).active = true</div></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://useyourloaf.com/blog/supporting-iphone-x/" target="_blank" rel="external">Supporting iPhone X</a><br><a href="https://developer.apple.com/ios/human-interface-guidelines/overview/iphone-x/" target="_blank" rel="external"><br>Human Interface Guidelines</a></p>
+<p><a href="https://useyourloaf.com/blog/safe-area-layout-guide/" target="_blank" rel="external">Safe Area Layout Guide</a></p>
+</blockquote>
+<p>其他适配遇到的坑</p>
+<blockquote>
+<p><a href="http://www.cocoachina.com/ios/20170925/20642.html" target="_blank" rel="external">10分钟适配 iOS 11 &amp; iPhone X</a><br><a href="http://www.cocoachina.com/ios/20170925/20640.html" target="_blank" rel="external">iOS11遇到的坑及解决方法</a><br><a href="http://www.cocoachina.com/ios/20170925/20629.html" target="_blank" rel="external">iPhone X适配需要注意事项</a></p>
+</blockquote>
+
       
     </div>
 
@@ -499,8 +531,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.JPG"
@@ -562,6 +603,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Safe-Area-Layout-Guide"><span class="nav-number">1.</span> <span class="nav-text">Safe Area Layout Guide</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Top-Layout-Guide-Bottom-Layout-Guide"><span class="nav-number">2.</span> <span class="nav-text">Top Layout Guide,Bottom Layout Guide</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XIB"><span class="nav-number">3.</span> <span class="nav-text">XIB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码下面添加约束"><span class="nav-number">4.</span> <span class="nav-text">代码下面添加约束</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

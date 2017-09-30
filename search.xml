@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[适配iPhoneX 布局]]></title>
     <url>%2F2017%2F09%2F30%2FiPhoneX-Adaptive%2F</url>
-    <content type="text"><![CDATA[大多数系统提供的UI比如导航栏，表格和集合都可以自适应，交互指南里面特别提到的不能遮盖屏幕顶部或者底部的圆角，传感器外壳或者屏幕指示器。特别的iOS 11允许屏幕底部边缘的手势访问控制中心等，所以遮挡都会引起手势冲突。]]></content>
+    <content type="text"><![CDATA[大多数系统提供的UI比如导航栏，表格和集合都可以自适应，交互指南里面特别提到的不能遮盖屏幕顶部或者底部的圆角，传感器外壳或者屏幕指示器。特别的iOS 11允许屏幕底部边缘的手势访问控制中心等，所以遮挡都会引起手势冲突。 Safe Area Layout Guide 上下底部的圆角都留出来了。 还是比较好用，唯一遗憾的是不支持ios9以前的系统。 Top Layout Guide,Bottom Layout Guide当然在ios9以前的系统可以利用StoreBoard的Top Layout Guide ,Bottom Layout Guide。同样能达到布局的效果 先取消Safe Area Layout Guide 布局如下 XIB当然在xib下面没有Top Layout Guide ,Bottom Layout Guide。 底部布局只需要 勾上 Constrain to margins 即可达到同样效果 代码下面添加约束参考 代码创建约束 1234567avatarView.topAnchor.constraintEqualToAnchor( topLayoutGuide.bottomAnchor).active = truebookTextView.bottomAnchor.constraintEqualToAnchor( bottomLayoutGuide.topAnchor, constant: -20).active = true Supporting iPhone XHuman Interface Guidelines Safe Area Layout Guide 其他适配遇到的坑 10分钟适配 iOS 11 &amp; iPhone XiOS11遇到的坑及解决方法iPhone X适配需要注意事项]]></content>
       <categories>
         <category>iOS</category>
       </categories>
